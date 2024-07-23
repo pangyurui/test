@@ -6,7 +6,7 @@ pipeline {
         FLASK_APP = 'workspace/flask/app.py'  // Correct path to the Flask app
         PATH = "$VENV_PATH/bin:$PATH"
         SONARQUBE_SCANNER_HOME = tool name: 'SonarQube Scanner'
-        SONARQUBE_TOKEN = 'squ_86b91eae9918cf1465ee0cbe6adc8b9009accc0b'  // Set your new SonarQube token here
+        SONARQUBE_TOKEN = 'squ_6f9732a000db0237160c40a19ffe3b06db94041e'  // Set your new SonarQube token here
         DEPENDENCY_CHECK_HOME = '/var/jenkins_home/tools/org.jenkinsci.plugins.DependencyCheck.tools.DependencyCheckInstallation/OWASP_Dependency-Check/dependency-check'
     }
     
@@ -41,20 +41,20 @@ pipeline {
             }
         }
         
-        // stage('Dependency Check') {
-        //     steps {
-        //         script {
-        //             // Create the output directory for the dependency check report
-        //             sh 'mkdir -p workspace/flask/dependency-check-report'
-        //             // Print the dependency check home directory for debugging
-        //             sh 'echo "Dependency Check Home: $DEPENDENCY_CHECK_HOME"'
-        //             sh 'ls -l $DEPENDENCY_CHECK_HOME/bin'
-        //             sh '''
-        //             ${DEPENDENCY_CHECK_HOME}/bin/dependency-check.sh --project "Flask App" --scan . --format "ALL" --out workspace/flask/dependency-check-report || true
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Dependency Check') {
+            steps {
+                script {
+                    // Create the output directory for the dependency check report
+                    sh 'mkdir -p workspace/flask/dependency-check-report'
+                    // Print the dependency check home directory for debugging
+                    sh 'echo "Dependency Check Home: $DEPENDENCY_CHECK_HOME"'
+                    sh 'ls -l $DEPENDENCY_CHECK_HOME/bin'
+                    sh '''
+                    ${DEPENDENCY_CHECK_HOME}/bin/dependency-check.sh --project "Flask App" --scan . --format "ALL" --out workspace/flask/dependency-check-report || true
+                    '''
+                }
+            }
+        }
         
         stage('UI Testing') {
             steps {
