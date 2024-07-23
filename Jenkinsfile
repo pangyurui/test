@@ -33,13 +33,13 @@ pipeline {
             }
         }
         
-        stage('Activate Virtual Environment and Install Dependencies') {
-            steps {
-                dir('workspace/flask') {
-                    sh '. $VENV_PATH/bin/activate && pip install -r requirements.txt'
-                }
-            }
-        }
+        // stage('Activate Virtual Environment and Install Dependencies') {
+        //     steps {
+        //         dir('workspace/flask') {
+        //             sh '. $VENV_PATH/bin/activate && pip install -r requirements.txt'
+        //         }
+        //     }
+        // }
         
         stage('Dependency Check') {
             steps {
